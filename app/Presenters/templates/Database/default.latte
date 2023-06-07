@@ -1,0 +1,23 @@
+<table>
+    <thead>
+    <tr><th colspan="5">DATABASE</th></tr>
+    <tr>
+        <th>ID</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>phone</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $films as $oneUser}
+        <tr>
+            <td>{$oneUser->id}</td>
+            <td>{$oneUser->firstName}</td>
+            <td>{$oneUser->lastName}</td>
+            <td>{$oneUser->phone}</td>
+            <td><a n:href="Database:delete $oneUser->id">Delete</a> </td>
+        </tr>
+
+    {/foreach}
+    </tbody>
+</table>

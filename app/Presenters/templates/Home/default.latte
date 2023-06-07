@@ -1,0 +1,22 @@
+<!-- default.latte -->
+<table>
+	<thead>
+	<tr>
+		<th>ID</th>
+		<th>First Naaaaaaaaaaaaaaaame</th>
+		<th>Last Name</th>
+		<th>Phone</th>
+	</tr>
+	</thead>
+	<tbody>
+	{foreach $users as $oneUser}
+		<tr>
+			<td>{$oneUser->user_id}</td>
+			<td>{$oneUser->first_name}</td>
+			<td>{$oneUser->last_name}</td>
+			<td>{$oneUser->phone}</td>
+		</tr>
+	{/foreach}
+	</tbody>
+	<a n:href="Database:default">Database</a>
+</table>
