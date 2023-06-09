@@ -57,6 +57,7 @@ class DatabasePresenter extends Presenter
          $jsonData = json_decode($data, true);
          $this->filmUpdate->updateFilm($jsonData);
 
+        $this->sendJson(["status" => "ok"]);
 //         $this->sendJson($jsonData);
     }
 
