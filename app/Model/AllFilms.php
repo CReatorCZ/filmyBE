@@ -19,6 +19,18 @@ class AllFilms extends AbstractService
 
         $finalFilterFilms = [];
         foreach ($filteredFilms as $filmItem) {
+
+            $actors = [];
+            foreach ($filmItem->actors as $actor){
+                $actors[] = [
+                    'id' => $actor->id,
+                    'firstName' => $actor->firstName,
+                    'lastName' => $actor->lastName,
+                    'age' => $actor->age,
+                    'gender' => $actor->gender,
+                ];
+            }
+
             $finalFilterFilms[] = [
                 'id' => $filmItem->id,
                 'name' => $filmItem->name,
@@ -28,15 +40,14 @@ class AllFilms extends AbstractService
                 'length' => $filmItem->length,
                 'rating' => $filmItem->rating,
                 'nationalOrigin' => $filmItem->nationalOrigin,
-                'description' => $filmItem->description
+                'description' => $filmItem->description,
+                'actors' => $actors,
             ];
         }
 
 
-        $json = ['totalCount' => $filteredFilmsCount,
+        return ['totalCount' => $filteredFilmsCount,
             'films' => $finalFilterFilms,];
-
-        return $json;
     }
 
 }
