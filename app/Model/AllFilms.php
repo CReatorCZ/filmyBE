@@ -6,12 +6,8 @@ use Nextras\Orm\Collection\Expression\LikeExpression;
 
 class AllFilms extends AbstractService
 {
-    public function getFilms(int $offset, int $limit, string $filteredWord = ""): array{
-
-//        $data = $this->orm->films->findAll()->fetchAll();
-        $data = $this->orm->films->findAll()->limitBy($limit,$offset);
-        $totalCount = $this->orm->films->findAll()->count('*');
-
+    public function getFilms(int $offset, int $limit, string $filteredWord = ""): array
+    {
 
         $filteredFilms = $this->orm->films->findBy([
             'name~' => LikeExpression::contains($filteredWord),
@@ -20,22 +16,6 @@ class AllFilms extends AbstractService
             'name~' => LikeExpression::contains($filteredWord),
         ])->count('*');
 
-
-
-        $films = [];
-        foreach ($data as $film) {
-            $films[] = [
-                'id' => $film->id,
-                'name' => $film->name,
-                'genre' => $film->genre,
-                'direction' => $film->direction,
-                'releaseDate' => $film->releaseDate,
-                'length' => $film->length,
-                'rating' => $film->rating,
-                'nationalOrigin' => $film->nationalOrigin,
-                'description' => $film->description
-            ];
-        }
 
         $finalFilterFilms = [];
         foreach ($filteredFilms as $filmItem) {
@@ -53,16 +33,8 @@ class AllFilms extends AbstractService
         }
 
 
-
-//        $json = ['totalCount' => $totalCount,
-//            'films' => $films,
-//            'finalFilterFilms' => $finalFilterFilms,
-//            'filteredFilmsCount' => $filteredFilmsCount,
-//            'filteredWord' => $filteredWord]
-//        ;
         $json = ['totalCount' => $filteredFilmsCount,
-            'films' => $finalFilterFilms,]
-        ;
+            'films' => $finalFilterFilms,];
 
         return $json;
     }
