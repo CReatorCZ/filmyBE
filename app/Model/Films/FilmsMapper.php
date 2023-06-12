@@ -6,6 +6,6 @@ use Nextras\Orm\Mapper\Mapper;
 
 class FilmsMapper extends Mapper
 {
-    protected $tableName = 'films';
+//    protected $tableName = 'films';   // je toto potřeba?
 
 }
