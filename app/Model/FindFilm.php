@@ -6,7 +6,17 @@ class FindFilm extends AbstractService
 {
     public function findFilm(int $id): array{
         $entita = $this->orm->films->getById($id);
-        $totalCount = $this->orm->films->findAll()->count('*');
+
+        $actors = [];
+        foreach ($entita->actors as $actor){
+            $actors[] = [
+                'id' => $actor->id,
+                'firstName' => $actor->firstName,
+                'lastName' => $actor->lastName,
+                'age' => $actor->age,
+                'gender' => $actor->gender,
+            ];
+        }
 
         $data[] = [
             'id' => $entita->id,
@@ -17,10 +27,9 @@ class FindFilm extends AbstractService
             'length' => $entita->length,
             'rating' => $entita->rating,
             'nationalOrigin' => $entita->nationalOrigin,
-            'description' => $entita->description
+            'description' => $entita->description,
+            'actors' => $actors,
         ];
-
-
 
 
         return $data;
