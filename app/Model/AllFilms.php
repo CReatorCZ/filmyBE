@@ -6,15 +6,20 @@ use Nextras\Orm\Collection\Expression\LikeExpression;
 
 class AllFilms extends AbstractService
 {
-    public function getFilms(int $offset, int $limit, string $filteredWord = ""): array
+    public function getFilms(int $offset, int $limit, ?string $filteredWord = "",?string $filteredActor = ""): array
     {
+        $filteredWord = $filteredWord ?? "";
+        $filteredActor = $filteredActor ?? "";
+
 
         $filteredFilms = $this->orm->films->findBy([
             'name~' => LikeExpression::contains($filteredWord),
         ])->limitBy($limit, $offset);
+
         $filteredFilmsCount = $this->orm->films->findBy([
             'name~' => LikeExpression::contains($filteredWord),
         ])->count('*');
+
 
 
         $finalFilterFilms = [];
