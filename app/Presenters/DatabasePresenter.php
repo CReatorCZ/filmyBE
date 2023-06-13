@@ -36,8 +36,9 @@ class DatabasePresenter extends Presenter
          $offset = $this->getParameter('offset');
          $limit = $this->getParameter('limit');
          $searchedWord = $this->getParameter('search');
+         $searchedActor = $this->getParameter('actor');
 
-        $this->sendJson($this->allFilms->getFilms($offset, $limit, $searchedWord));
+        $this->sendJson($this->allFilms->getFilms($offset, $limit, $searchedWord, $searchedActor));
     }
 
     public function actionFind(int $id): void{
