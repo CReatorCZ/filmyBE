@@ -2,10 +2,11 @@
 
 namespace App\Model\Films;
 
+use Nextras\Dbal\Result\Row;
 use Nextras\Orm\Repository\Repository;
 
 /**
- * @method Film|NULL getById($id)
+ * @method Row[] getFilmsByActors(object $filters)
  */
 class FilmsRepository extends Repository
 {

@@ -3,13 +3,14 @@
 namespace App\Model;
 
 use Nextras\Orm\Collection\Expression\LikeExpression;
+use Nextras\Orm\Collection\ICollection;
 
 class AllFilms extends AbstractService
 {
-    public function getFilms(int $offset, int $limit, ?string $filteredWord = "",?string $filteredActor = ""): array
+    public function getFilms(int $offset, int $limit, ?string $filteredWord = "", ?string $filteredActor = ""): array
     {
         $filteredWord = $filteredWord ?? "";
-        $filteredActor = $filteredActor ?? "";
+        $filteredActor = "jo";
 
 
         $filteredFilms = $this->orm->films->findBy([
@@ -20,13 +21,14 @@ class AllFilms extends AbstractService
             'name~' => LikeExpression::contains($filteredWord),
         ])->count('*');
 
+        //$filteredActorsCount = $this->orm->films->getFilmsByActors($filteredActor);
 
 
         $finalFilterFilms = [];
         foreach ($filteredFilms as $filmItem) {
 
             $actors = [];
-            foreach ($filmItem->actors as $actor){
+            foreach ($filmItem->actors as $actor) {
                 $actors[] = [
                     'id' => $actor->id,
                     'firstName' => $actor->firstName,
@@ -51,8 +53,11 @@ class AllFilms extends AbstractService
         }
 
 
-        return ['totalCount' => $filteredFilmsCount,
-            'films' => $finalFilterFilms,];
+        return [
+            'totalCount' => $filteredFilmsCount,
+            'films' => $finalFilterFilms,
+
+        ];
     }
 
 }
